@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Button, Modal, Form } from "react-bootstrap";
+import { Container, Button, Modal, Form, Row, Col } from "react-bootstrap";
 
 const baseApiUrl = "http://localhost/wp-first/wp-json/wp/v2";
 
@@ -71,14 +71,18 @@ const PostDetails = () => {
     post && (
       <>
         <Container>
-          <h1>{post.title.rendered}</h1>
+          <h1 className="text-center display-3 fw-bold">{post.title.rendered}</h1>
           <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
-          <Button variant="danger" onClick={deletePost}>
-            Elimina
-          </Button>
-          <Button variant="primary" onClick={() => setShowModal(true)}>
-            Modifica
-          </Button>
+
+          <div className="d-flex justify-content-end mt-4">
+            <Button variant="danger" onClick={deletePost}>
+              Elimina
+            </Button>
+
+            <Button className="ms-3" variant="primary" onClick={() => setShowModal(true)}>
+              Modifica
+            </Button>
+          </div>
         </Container>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>
@@ -91,7 +95,7 @@ const PostDetails = () => {
             </Form.Group>
             <Form.Group controlId="formContent">
               <Form.Label>Contenuto</Form.Label>
-              <Form.Control as="textarea" value={newContent} onChange={(e) => setNewContent(e.target.value)} />
+              <Form.Control as="textarea" defaultValue={newContent} onChange={(e) => setNewContent(e.target.value)} />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
